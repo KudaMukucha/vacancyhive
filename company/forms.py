@@ -8,7 +8,6 @@ class CreateCompanyForm(forms.ModelForm):
     
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
-        self.fields['founded_in'].widget.attrs['placeholder'] = 'Select Date'
         self.fields['primary_industry'].empty_label = 'Select Primary Industry'
 
 class UpdateCompanyForm(forms.ModelForm):

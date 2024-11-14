@@ -46,7 +46,6 @@ class Company(models.Model):
     phone_number = models.CharField(max_length=20)
     email = models.EmailField(max_length=50)
     company_size = models.CharField(max_length=20,choices=COMPANY_SIZE_CHOICES)
-    founded_in = models.DateField()
     location = models.CharField(max_length=100)
     linkedin = models.URLField()
     website = models.URLField()
