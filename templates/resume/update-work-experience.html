@@ -1,0 +1,65 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%load widget_tweaks%}
+
+{%block content%}
+<section class="user-dashboard">
+    <div class="dashboard-outer">
+      <div class="upper-title-box">
+        <h3>Update Experience</h3>
+        <div class="text">Experience</div>
+      </div>
+
+      <!-- Ls widget -->
+      <div class="ls-widget">
+        <div class="widget-title">
+          <h4>Update Experience Details.</h4>
+        </div>
+
+        <div class="widget-content">
+          <form class="default-form" method="post">
+            {%csrf_token%}
+            <div class="row">
+           
+              <!-- Input -->
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Role</label>
+                {%render_field form.role%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Company Name</label>
+                {%render_field form.company_name%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Start Date</label>
+                {%render_field form.start_date type='date' class='form-control'%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>End Date</label>
+                {%render_field form.end_date class='form-control' type='date'%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Still At Working Here?</label>
+                {%render_field form.still_working%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Description</label>
+                {%render_field form.description%}
+              </div>
+
+             
+              <div class="form-group col-lg-6 col-md-12">
+                <button class="theme-btn btn-style-one" type="submit">Update Experience</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{%endblock%}

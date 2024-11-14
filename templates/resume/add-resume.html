@@ -1,0 +1,103 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%load widget_tweaks%}
+
+{%block content%}
+<section class="user-dashboard">
+    <div class="dashboard-outer">
+      <div class="upper-title-box">
+        <h3>Resume</h3>
+        <div class="text">Resume details</div>
+      </div>
+
+      <!-- Ls widget -->
+      <div class="ls-widget">
+        <div class="widget-title">
+          <h4>Add Resume Info.</h4>
+        </div>
+
+        <div class="widget-content">
+          <form class="default-form" method="post">
+            {%csrf_token%}
+            <div class="row">
+           
+              <!-- Input -->
+              <div class="form-group col-lg-6 col-md-12">
+                <label>First Name</label>
+                <input type="text" value="{{request.user.first_name}}" readonly>
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Last Name</label>
+                <input type="text" value="{{request.user.last_name}}" readonly>
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Gender</label>
+               {%render_field form.gender%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Age</label>
+               {%render_field form.age%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Province</label>
+               {%render_field form.province%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Country</label>
+               {%render_field form.country%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Experience (in years)</label>
+               {%render_field form.experience%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Educational Level</label>
+               {%render_field form.education_level%}
+              </div>
+             
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Language</label>
+               {%render_field form.language%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Phone Number</label>
+               {%render_field form.phone%}
+              </div>
+
+              <div class="form-group col-lg-4 col-md-12">
+                <label>LinkedIn</label>
+               {%render_field form.linkedin%}
+              </div>
+
+              <div class="form-group col-lg-4 col-md-12">
+                <label>Twitter</label>
+               {%render_field form.twitter%}
+              </div>
+
+              <div class="form-group col-lg-4 col-md-12">
+                <label>Introduction Video Link (optional)</label>
+               {%render_field form.video_link%}
+              </div>
+
+              <div class="form-group col-lg-12 col-md-12">
+                <label>Short Bio</label>
+               {%render_field form.about%}
+              </div>
+              <div class="form-group col-lg-6 col-md-12">
+                <button class="theme-btn btn-style-one" type="submit">Add </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{%endblock%}

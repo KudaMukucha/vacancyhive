@@ -1,0 +1,265 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%load humanize%}
+
+{%block content%}
+<section class="job-detail-section at-jsv7">
+    <!-- Upper Box -->
+    <div class="upper-box">
+      <div class="auto-container">
+        <!-- Job Block -->
+        <div class="job-block-seven at-jsv7">
+          <div class="inner-box row">
+            <div class="col-lg-8">
+              <div class="position-relative">
+                <div class="tags">
+                  {%if request.user.is_candidate%}
+                  <a class="flaticon-bookmark" href="{%url 'job:save-job' job.slug%}"></a>
+                  {%endif%}
+                </div>
+                <div class="content ps-0">
+                  <div class="d-sm-flex align-items-center">
+                    <figure class="image mb-sm-0"><img class="rounded-circle w60" src="/static/images/resource/company-logo/3-1.png" alt=""></figure>
+                    <div class="ms-0 ms-sm-3">
+                      <h4 class="fz20 mb-0"><a href="#">{{job.title}}</a></h4>
+                      <p>by <span class="fw500 text">{{job.company}}</span> in {{job.company.primary_industry}}</p>
+                    </div>
+                  </div>
+                  <ul class="job-other-info d-sm-flex ms-0 at-jsv7 mt30">
+                    <li class="time">{{job.job_type}}</li>
+                    <li class="time2">{{job.company.province}},{{job.company.country}}</li>
+                    <li class="time2">{{job.created | naturaltime}}</li>
+                    <li class="time2">From ${{job.salary}}/{{job.pay_mode}}</li>
+                    <li class="time2">{{job.category}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="text-lg-end">
+                <div class="titles mb-3 mb-sm-0">
+                  <h4 class="fz20 fw500 mb-1">Application Ends</h4>
+                  <p class="text mb15">May 18, 2026</p>
+                </div>
+                <div class="btn-box justify-content-lg-end mb-0">
+                    {%if request.user.is_candidate %}
+                  <a href="{%url 'job:apply-job' job.slug%}" class="theme-btn btn-style-one w-100">Apply For Job <i class="fal fa-long-arrow-right ms-3"></i></a>
+                  
+                  {%elif request.user.is_recruiter%}
+                  <a href="{%url 'job:update-job' job.slug%}" class="theme-btn btn-style-one w-100">Update Job <i class="fal fa-long-arrow-right ms-3"></i></a>
+                  {%endif%}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="job-detail-outer">
+      <div class="auto-container">
+        {%if job.status == 'Pending'%}
+        <div class="message-box warning">
+            <p>Your job is still the drafts and pending. Add responsibilities and experiences,then change the status to active. </p>
+            <button class="close-btn"><span class="close_icon"></span></button>
+          </div>
+        {%endif%}
+        <div class="row">
+          <div class="content-column col-lg-8 col-md-12 col-sm-12">
+            <div class="job-detail">
+              <h4 class="">Description</h4>
+              <p class="text">{{job.description}}</p>
+              <div class="resume-outer">
+                <div class="upper-title">
+                  <h4>Key Responsibilities</h4>
+                  {%if request.user.is_recruiter %}
+                  <a href="{%url 'job:add-job-responsibility' job.slug%}" class="add-info-btn"><span class="icon flaticon-plus"></span> Add Responsibility</a>
+                  {%endif%}
+                </div>
+              <ul class="list-style-three">
+                {%for responsibility in responsibilities%}   
+                <li class="dark-color">{{responsibility}}  <a href="{%url 'job:delete-job-responsibility' responsibility.pk%}">
+                    {%if request.user.is_recruiter%}
+                    <span class="la la-trash text-danger"></span>
+                    {%endif%}
+                </a></li>
+                {%endfor%}
+              </ul>
+              </div>
+              <div class="resume-outer">
+                <div class="upper-title">
+                  <h4>Skills & Experience</h4>
+                  {%if request.user.is_recruiter%}
+                  <a href="{%url 'job:add-job-experience' job.slug%}" class="add-info-btn"><span class="icon flaticon-plus"></span> Add Experience</a>
+                  {%endif%}
+                </div>
+              <ul class="list-style-three">
+                {%for experience in experiences%}   
+                <li class="dark-color">{{experience}}  <a href="{%url 'job:delete-job-experience' experience.pk%}">
+                    {%if request.user.is_recruiter%}
+                    <span class="la la-trash text-danger"></span>
+                    {%endif%}
+                </a></li>
+                {%endfor%}
+              </ul>
+              </div>
+            </div>
+            <hr class="opacity-100">
+
+       
+
+
+            <!-- Related Jobs -->
+            <div class="related-jobs">
+              <div class="title-box">
+                <h3>Other jobs by {{job.company.name}}</h3>
+                <div class="text">Check out other jobs by the same company.</div>
+              </div>
+
+              {%for companyjob in company_jobs%}
+              {%if not companyjob.slug == job.slug%}
+              <div class="job-block at-jsv6">
+                <div class="inner-box">
+                  <div class="tags d-flex align-items-center">
+                    <a class="far fa-crown" href="#"></a>
+                    <a class="far fa-bolt" href="#"></a>
+                    {%if request.user.is_candidate%}
+                    <a class="flaticon-bookmark" href="{%url 'job:save-job' job.slug%}"></a>
+                    {%endif%}
+                  </div>
+                  <div class="content ps-0">
+                    <div class="d-sm-flex align-items-center">
+                      <figure class="image mb-sm-0"><img class="rounded-circle w60" src="{%static 'images/resource/company-logo/3-1.png'%}" alt=""></figure>
+                      <div class="ms-0 ms-sm-3">
+                        <h4 class="fz20 mb-0"><a href="{%url 'job:job-details' companyjob.slug%}">{{companyjob.title}}</a></h4>
+                        <p>by <span class="fw500 text">{{companyjob.company.name}}</span> in {{companyjob.category}}</p>
+                      </div>
+                    </div>
+                    <ul class="job-other-info d-sm-flex ms-0 at-jsv6 mt30">
+                      <li class="time">{{companyjob.job_type}}</li>
+                      <li class="time2">{{companyjob.company.province}},{{companyjob.country}}</li>
+                      <li class="time2">{{companyjob.created | naturaltime}}</li>
+                      <li class="time2">From ${{companyjob.salary}}/{{companyjob.pay_mode}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {%endif%}
+              {%endfor%}
+
+            </div>
+          </div>
+
+          <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
+            <aside class="sidebar">
+              <div class="sidebar-widget at-jsv7">
+                <h4 class="widget-title">Job Overview</h4>
+                <div class="widget-content">
+                  <ul class="job-overview at-sv5">
+                    <li>
+                      <i class="icon flaticon-title"></i>
+                      <div class="ml15">
+                        <h5>Qualification</h5>
+                        <span>Bachelor Degree</span>
+                      </div>
+                    </li>
+                    <li>
+                      <i class="icon fal fa-circle-dollar"></i>
+                      <div class="ml15">
+                        <h5>Offered Salary</h5>
+                        <span>${{job.salary}}/{{job.pay_mode | lower}}</span>
+                      </div>
+                    </li>
+                    <li>
+                      <i class="icon flaticon-map-locator"></i>
+                      <div class="ml15">
+                        <h5>Hiring location</h5>
+                        <span>{{job.company.province}}, {{job.company.country}}</span>
+                      </div>
+                    </li>
+                    <li>
+                      <i class="icon icon-calendar"></i>
+                      <div class="ml15">
+                        <h5>Date Posted</h5>
+                        <span>Posted {{job.created | naturaltime}}</span>
+                      </div>
+                    </li>
+                    <!-- <li>
+                      <i class="icon flaticon-profit"></i>
+                      <div class="ml15">
+                        <h5>Career Level</h5>
+                        <span>Officer</span>
+                      </div>
+                    </li> -->
+                    <!-- <li>
+                      <i class="icon far fa-mars"></i>
+                      <div class="ml15">
+                        <h5>Gender</h5>
+                        <span>Both</span>
+                      </div>
+                    </li> -->
+                    <!-- <li>
+                      <i class="icon flaticon-man"></i>
+                      <div class="ml15">
+                        <h5>Experience</h5>
+                        <span>4-8 Year</span>
+                      </div>
+                    </li> -->
+                    <li>
+                      <i class="icon fal fa-hourglass-end"></i>
+                      <div class="ml15">
+                        <h5>Expiration date</h5>
+                        <span>April 06, 2021</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <div class="d-grid mb15">
+                  <a href="#" class="ud-btn-transparent">Send Message</a>
+                </div> -->
+                <!-- <div class="text-center">
+                  <div class="social-link-style1">
+                    <a class="me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="me-3" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="me-3" href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  </div>
+                </div> -->
+              </div>
+              <div class="sidebar-widget company-widget at-jsv6">
+                <div class="widget-content">
+                  <div class="company-title">
+                    <div class="company-logo"><img src="{%static 'images/resource/company-7.png'%}" alt=""></div>
+                    <h5 class="company-name">{{job.company.name}}</h5>
+                    <a href="{%url 'company:company-details' job.company.slug%}" class="profile-link">View company profile</a>
+                  </div>
+                  <ul class="company-info">
+                    <li>Primary industry: <span>{{job.company.primary_industry}}</span></li>
+                    <li>Company size: <span>{{job.company.company_size}}</span></li>
+                    <li>Founded in: <span>{{job.company.founded_in | date:"Y"}}</span></li>
+                    <li>Phone: <span>{{job.company.phone_number}}</span></li>
+                    <li>Email: <span>{{job.company.email}}</span></li>
+                    <li>Location: <span>{{job.company.province}}, {{job.company.country}}</span></li>
+                  </ul>
+                  <div class="btn-box"><a href="{{job.company.website}}" class="theme-btn btn-style-three">{{job.company.website}}</a></div>
+                  <!-- <div class="d-grid mb15 mt20">
+                    <a href="#" class="ud-btn-transparent">Send Message</a>
+                  </div> -->
+                  <!-- <div class="text-center">
+                    <div class="social-link-style1">
+                      <a class="me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a class="me-3" href="#"><i class="fab fa-twitter"></i></a>
+                      <a class="me-3" href="#"><i class="fab fa-instagram"></i></a>
+                      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%endblock%}

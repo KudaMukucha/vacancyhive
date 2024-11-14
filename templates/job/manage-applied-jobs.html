@@ -1,0 +1,94 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+
+{%block content%}
+<section class="user-dashboard">
+    <div class="dashboard-outer">
+      <div class="upper-title-box">
+        <h3>Applied Jobs</h3>
+        <div class="text">Ready to jump back in?</div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- Ls widget -->
+          <div class="ls-widget">
+            <div class="tabs-box">
+              <div class="widget-title">
+                <h4>My Applied Jobs</h4>
+
+                <div class="chosen-outer">
+                  <!--Tabs Box-->
+                  <select class="chosen-select">
+                    <option>Last 6 Months</option>
+                    <option>Last 12 Months</option>
+                    <option>Last 16 Months</option>
+                    <option>Last 24 Months</option>
+                    <option>Last 5 year</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="widget-content">
+                <div class="table-outer">
+                  <table class="default-table manage-job-table">
+                    <thead>
+                      <tr>
+                        <th>Job Title</th>
+                        <th>Date Applied</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                        {%for job in jobs%}
+                      <tr>
+                        <td>
+                          <!-- Job Block -->
+                          <div class="job-block">
+                            <div class="inner-box">
+                              <div class="content">
+                                <span class="company-logo"><img src="{%static 'images/resource/company-logo/1-1.png'%}" alt=""></span>
+                                <h4><a href="#">{{job.job.title}}</a></h4>
+                                <ul class="job-info">
+                                  <li><span class="icon flaticon-briefcase"></span>{{job.job.company.name}}</li>
+                                  <li><span class="icon flaticon-map-locator"></span> {{job.job.location}}, {{job.job.company.province}}</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{job.applied_on|date}}</td>
+                        <td class="status">
+                            {%if job.status == 'Pending'%}
+                            <span class="text-info">Pending</span>
+                            {%elif job.status == 'Accepted'%}
+                            <span class="text-success">Accepted</span>
+                            {%elif job.status == 'Declined'%}
+                            <span class="text-danger">Declined</span>
+                            {%endif%}
+                        </td>
+                        <td>
+                          <div class="option-box">
+                            <ul class="option-list">
+                              <li><a href="{%url 'job:job-details' job.job.slug%}" data-text="View Job"><span class="la la-eye"></span></a></li>
+                              <li><a href="{%url 'job:delete-application' job.pk%}" data-text="Delete Job Aplication"><span class="la la-trash"></span></a></li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                  {%endfor%}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+{%endblock%}

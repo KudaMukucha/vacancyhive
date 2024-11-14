@@ -1,0 +1,124 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%load widget_tweaks%}
+{%block title%}  <title>Update Company | Vacancy Hive</title> {%endblock%}
+
+{%block content%}
+    <div class="upper-title-box">
+      <h3>Company Profile!</h3>
+      <div class="text">Update company information</div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Ls widget -->
+        <div class="ls-widget">
+          <div class="tabs-box">
+            <div class="widget-title">
+              <h4>Update Company Details</h4>
+            </div>
+
+            <div class="widget-content">
+
+              <!-- <div class="uploading-outer">
+                <div class="uploadButton">
+                  <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
+                  <label class="uploadButton-button ripple-effect" for="upload">Browse Logo</label>
+                  <span class="uploadButton-file-name"></span>
+                </div>
+                <div class="text">Max file size is 1MB, Minimum dimension: 330x300 And Suitable files are .jpg & .png</div>
+              </div> -->
+
+              
+
+              <form class="default-form" method="post">
+                {%csrf_token%}
+                <div class="row">
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Company name</label>
+                  {%render_field form.name placeholder="e.g NASA"%}
+                  </div>
+
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Email address</label>
+                    {%render_field form.email placeholder="e.g company@mail.com"%}
+                  </div>
+
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Phone</label>
+                    {%render_field form.phone_number placeholder="e.g +91 1828 332  222"%}
+                  </div>
+
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Website</label>
+                    {%render_field form.website placeholder="e.g www.company.com"%}
+                  </div>
+
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Est. Since</label>
+                    {%render_field form.founded_in type="date" class="form-control"%}
+                  </div>
+
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Team Size</label>
+                    {%render_field form.company_size%}
+                  </div>
+
+                  <!-- Search Select -->
+                  <div class="form-group col-lg-4 col-md-12">
+                    <label>Primary Industry </label>
+                    {%render_field form.primary_industry%}
+                  </div>
+
+                  <div class="form-group col-lg-4 col-md-12">
+                    <label>Province </label>
+                    {%render_field form.province placeholder="Select Province"%}
+                  </div>
+
+                  <div class="form-group col-lg-4 col-md-12">
+                    <label>Country </label>
+                    {%render_field form.country%}
+                  </div>
+
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Address </label>
+                    {%render_field form.location%}
+                  </div>
+                 
+
+                  <div class="form-group col-lg-6 col-md-12">
+                    <label>Linkedin </label>
+                    {%render_field form.linkedin%}
+                  </div>
+
+
+                  <!-- About Company -->
+                  <div class="form-group col-lg-12 col-md-12">
+                    <label>About Company</label>
+                   {%render_field form.description placeholder="Spent several years working on sheep on Wall Street. Had moderate success investing in Yugo on Wall Street."%}
+                  </div>
+
+                  <!-- Input -->
+                  <div class="form-group col-lg-6 col-md-12">
+                    <button class="theme-btn btn-style-one" type="submit">Update</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+    
+
+      </div>
+
+
+    </div>
+ 
+{%endblock%}

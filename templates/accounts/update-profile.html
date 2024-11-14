@@ -1,0 +1,47 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%load widget_tweaks%}
+
+{%block content%}
+<section class="user-dashboard">
+    <div class="dashboard-outer">
+      <div class="upper-title-box">
+        <h3>Update Profile</h3>
+        <div class="text">Ready to jump back in?</div>
+      </div>
+
+      <!-- Ls widget -->
+      <div class="ls-widget">
+        <div class="widget-title">
+          <h4>Update Profile</h4>
+        </div>
+
+        <div class="widget-content">
+          <form class="default-form" method="post">
+            {%csrf_token%}
+            <div class="row">
+           
+              <!-- Input -->
+              <div class="form-group col-lg-6 col-md-12">
+                <label>First Name</label>
+                {%render_field form.first_name%}
+              </div>
+
+              <!-- Input -->
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Last Name</label>
+                {%render_field form.last_name%}
+              </div>
+
+
+              <!-- Input -->
+              <div class="form-group col-lg-6 col-md-12">
+                <button class="theme-btn btn-style-one" type="submit">Update Profile</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{%endblock%}

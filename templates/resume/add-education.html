@@ -1,0 +1,71 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{%load widget_tweaks%}
+
+{%block content%}
+<section class="user-dashboard">
+    <div class="dashboard-outer">
+      <div class="upper-title-box">
+        <h3>Add Education</h3>
+        <div class="text">Education</div>
+      </div>
+
+      <!-- Ls widget -->
+      <div class="ls-widget">
+        <div class="widget-title">
+          <h4>Add Education Qualificiations .</h4>
+        </div>
+
+        <div class="widget-content">
+          <form class="default-form" method="post">
+            {%csrf_token%}
+            <div class="row">
+           
+              <!-- Input -->
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Degree Type</label>
+                {%render_field form.degree_type%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Course Name</label>
+                {%render_field form.course%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Institution</label>
+                {%render_field form.institution%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Still At School?</label>
+                {%render_field form.still_schooling%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>Start Date</label>
+                {%render_field form.start_date type='date' class='form-control'%}
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12">
+                <label>End Date</label>
+                {%render_field form.end_date class='form-control' type='date'%}
+              </div>
+
+              <div class="form-group col-lg-12 col-md-12">
+                <label>Description</label>
+                {%render_field form.description%}
+              </div>
+
+             
+              <div class="form-group col-lg-6 col-md-12">
+                <button class="theme-btn btn-style-one" type="submit">Add Education</button>
+                <a href="{%url 'resume:resume-details' resume.pk%}" class="theme-btn btn-style-two">Back to Resume</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{%endblock%}
